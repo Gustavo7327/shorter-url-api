@@ -41,10 +41,10 @@ public class URLController {
         return ResponseEntity.ok(new URLResponse(redirect));
     }
 
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Void> redirect(@PathVariable("id") String id){
 
-        var urlOp = repository.findById(id);
+        var urlOp = repository.findById(id);       
 
         if(urlOp.isEmpty()){
             return ResponseEntity.notFound().build();
