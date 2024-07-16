@@ -1,11 +1,6 @@
 package com.gustavo7327.shorter_url.entity;
 
-import java.time.LocalDateTime;
-
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -14,41 +9,34 @@ import jakarta.persistence.Table;
 public class URLEntity {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String urlOriginal;
 
-    private LocalDateTime expires;
+    
+    public URLEntity(){
 
+    }
 
-    public Long getId() {
+    public URLEntity(String id, String urlOriginal) {
+        this.id = id;
+        this.urlOriginal = urlOriginal;
+    }
+
+    public String getId() {
         return id;
     }
 
-
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
-
 
     public String getUrlOriginal() {
         return urlOriginal;
     }
 
-
     public void setUrlOriginal(String urlOriginal) {
         this.urlOriginal = urlOriginal;
-    }
-
-
-    public LocalDateTime getExpires() {
-        return expires;
-    }
-
-
-    public void setExpires(LocalDateTime expires) {
-        this.expires = expires;
     }
 
 }
