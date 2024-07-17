@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gustavo7327.shorter_url.dto.URLRequest;
 import com.gustavo7327.shorter_url.dto.URLResponse;
@@ -53,5 +54,12 @@ public class URLController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(urlOp.get().getUrlOriginal()));
         return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build();
+    }
+
+    @GetMapping
+    public ModelAndView index(){
+        ModelAndView mav = new ModelAndView("index");
+        mav.addObject("url", new URLEntity());
+        return mav;
     }
 }
