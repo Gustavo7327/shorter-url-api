@@ -32,7 +32,20 @@ public class URLController {
     @PostMapping(value = "/shorten-url")
     public ResponseEntity<URLResponse> create(@RequestBody URLRequest request, HttpServletRequest httpServletRequest){
 
-        var existingURL = repository.findByUrlOriginal(request.url());
+        if(!request.url().matches("^((http|https)://)?(([^/:\\._\\W]*)(\\.[^/:\\._\\W]+))$")){
+            return ResponseEntity.badRequest().body(new URLResponse("URL inválida. Formato deve ser http:// ou https:// seguido de domínio ou somente o domínio."));
+        }
+        
+        String completeURL = request.url();
+
+        if(request.url().matches("^((?!(http|https)://)[^/]+)(/.*)?$")){
+            completeURL = "http://" + request.url();
+        } else if(request.url().matches("^https://([^/]+)$")){
+            completeURL = request.url().replace("https", "http");
+        }
+        
+
+        var existingURL = repository.findByUrlOriginal(completeURL);
         if(!existingURL.isEmpty()) {
             String redirect = httpServletRequest.getRequestURL().toString().replace("shorten-url", existingURL.get().getId());
             return ResponseEntity.ok(new URLResponse(redirect));
@@ -43,7 +56,7 @@ public class URLController {
             id = RandomStringUtils.randomAlphanumeric(5,10);
         } while(repository.existsById(id));
 
-        repository.save(new URLEntity(id, request.url()));
+        repository.save(new URLEntity(id, completeURL));
 
         String redirect = httpServletRequest.getRequestURL().toString().replace("shorten-url",id);
         return ResponseEntity.ok(new URLResponse(redirect));
