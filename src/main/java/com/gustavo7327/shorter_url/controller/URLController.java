@@ -32,13 +32,20 @@ public class URLController {
     @PostMapping(value = "/shorten-url")
     public ResponseEntity<URLResponse> create(@RequestBody URLRequest request, HttpServletRequest httpServletRequest){
 
+        var existingURL = repository.findByUrlOriginal(request.url());
+        if(!existingURL.isEmpty()) {
+            String redirect = httpServletRequest.getRequestURL().toString().replace("shorten-url", existingURL.get().getId());
+            return ResponseEntity.ok(new URLResponse(redirect));
+        }
+
         String id;
         do{
             id = RandomStringUtils.randomAlphanumeric(5,10);
         } while(repository.existsById(id));
 
         repository.save(new URLEntity(id, request.url()));
-        var redirect = httpServletRequest.getRequestURL().toString().replace("shorten-url",id);
+
+        String redirect = httpServletRequest.getRequestURL().toString().replace("shorten-url",id);
         return ResponseEntity.ok(new URLResponse(redirect));
     }
 
@@ -58,7 +65,7 @@ public class URLController {
 
     @GetMapping
     public ModelAndView index(){
-        ModelAndView mav = new ModelAndView("index");
+        ModelAndView mav = new ModelAndView("index.html");
         mav.addObject("url", new URLEntity());
         return mav;
     }
