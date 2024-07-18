@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@
 
     <main>
         <h1>Insira sua url no campo abaixo</h1>
-        <form id="urlForm" action="/shorten-url" th:object="${url}" method="post">
+        <form id="urlForm" th:action="@{/shorten-url}" th:object="${url}" method="post">
             <input id="insert" type="text" th:field="*{urlOriginal}" placeholder="Insira sua url aqui">
             <div class="group">
                 <input type="submit" value="Criar">
@@ -33,19 +33,23 @@
     <script>
         $(document).ready(function() {
             $("#urlForm").submit(function(event) {
-                event.preventDefault(); // Prevent default form submission
+                event.preventDefault();
 
-                var url = $("#urlOriginal").val();
+                let url = $("#insert").val();
+
+                if (!/^http:\/\/$/.test(url)) {
+                    url = "http://" + url;
+                } 
 
                 $.ajax({
                     url: "/shorten-url",
                     type: "POST",
-                    data: JSON.stringify({ url: url }), // Send data as JSON
-                    contentType: "application/json; charset=utf-8", // Set content type
+                    data: JSON.stringify({ url: url }),
+                    contentType: "application/json; charset=utf-8",
+
                     success: function(response) {
-                        // Handle successful response
-                        $("#shortenedUrl").text("Acesse a URL em: " + response.url); // Update UI with shortened URL
-                        $("#resultMessage").text("URL encurtada com sucesso!"); // Display success message
+                        $("#shortenedUrl").text("Acesse a URL em: " + response.url);
+                        $("#resultMessage").text("URL encurtada com sucesso!");
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         // Handle errors (optional)
