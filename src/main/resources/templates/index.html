@@ -5,30 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shorts Urls Easily!</title>
     <link rel="shortcut icon" href="imgs/logo1.svg" type="image/x-icon">
-    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
-    <main>
-        <h1>Insira sua url no campo abaixo</h1>
-        <form id="urlForm" th:action="@{/shorten-url}" th:object="${url}" method="post">
-            <input id="insert" type="text" th:field="*{urlOriginal}" placeholder="Insira sua url aqui">
-            <div class="group">
-                <input type="submit" value="Criar">
-                <input type="reset" value="Limpar">
-            </div>  
-        </form>
+    <div class="container">
+        <main>
+            <h1>Insira sua url no campo abaixo</h1>
 
-        <p id="resultMessage">blabla</p>
-        <p id="shortenedUrl">testando</p>
-    </main>
-
-    <footer>
-        Desenvolvido por Gustavo7327
-    </footer>
+            <form id="urlForm" th:action="@{/shorten-url}" th:object="${url}" method="post">
+                <input id="insert" type="text" th:field="*{urlOriginal}" placeholder="Insira sua url aqui">
+                <div class="group">
+                    <input type="submit" value="Criar">
+                    <input type="reset" value="Limpar">
+                </div>  
+            </form>
     
+            <section class="messages">
+                <p id="resultMessage"></p>
+                <p id="shortenedUrl"></p>
+            </section> 
+        </main>
+    </div>
 
     <script src="script/script.js"></script>
 

@@ -1,42 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 }
 
-main, form{
+main, form, .messages{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
 }
 
-p:first-of-type{
-    margin-top: 40px;
-}
-
-p:last-of-type{
-    margin-top: 20px;
-}
-
-main{
+main, .group, .messages{
     justify-content: center;
-    height: 80vh;
+}
+
+form, .messages{
+    padding: 20px 12px;
 }
 
 #insert{
-    width: 50vw;
+    width: 100%;
     height: 32px;
 }
 
 .group{
     margin-top: 20px;
     padding: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .group input{
@@ -48,7 +50,7 @@ h1{
     text-align: center;
     font-size: 32px;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin: 20px 12px;  
 }
 
 input{
@@ -58,11 +60,4 @@ input{
 
 *{
     font-family: "Poppins", sans-serif;
-}
-
-footer{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 20vh;
 }

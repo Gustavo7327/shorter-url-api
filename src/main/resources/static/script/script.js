@@ -15,8 +15,8 @@ $(document).ready(function() {
                 $("#resultMessage").text("URL encurtada com sucesso!");
             },
             error: function(error) {
-                console.log(error);
-                $("#resultMessage").text(error.responseJSON.url);
+                $("#shortenedUrl").empty();
+                $("#resultMessage").text(error.responseJSON.url);          
             }
         });
     });
