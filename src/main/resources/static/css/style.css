@@ -58,6 +58,14 @@ input{
     font-weight: 500;
 }
 
+p{
+    display: flex;
+}
+
+p img{
+    padding-left: 8px;
+}
+
 *{
     font-family: "Poppins", sans-serif;
 }
